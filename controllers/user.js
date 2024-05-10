@@ -1,11 +1,10 @@
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const User = require('../models/user');
+const Extinguisher = require('../models/extinguisher');
 
 exports.join = async (req, res, next) => {
-    console.log(req.body);
   const { email, nick, password } = req.body;
-  console.log(email, nick, password)
   try {
     const exUser = await User.findOne({ where: { nick } });
     if (exUser) {
@@ -30,7 +29,6 @@ exports.login = (req, res, next) => {
       console.error(authError);
       return next(authError);
     }
-    console.log(user);
     if (!user) {
       return res.redirect(`/?error=${info.message}`);
     }
@@ -39,7 +37,7 @@ exports.login = (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
-      return res.redirect('/user/management');
+      return res.redirect('/management');
     });
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 };
@@ -48,4 +46,21 @@ exports.logout = (req, res) => {
   req.logout(() => {
     res.redirect('/');
   });
+};
+
+exports.management = async (req,res)=>{
+  try{
+    let extinguishers = await Extinguisher.findAll(
+      {where:{UserId:req.user.id}}
+    );
+    extinguishers = extinguishers.map((el)=>{
+        return el.dataValues;
+    });
+    extinguishers=JSON.stringify(extinguishers);
+    console.log(extinguishers);
+    res.render('users/management',{extinguishers});
+  }catch(err){
+    console.error(err);
+    next(err);
+  }
 };

@@ -9,6 +9,7 @@ const {sequelize} = require('./models/index')
 const path = require('path');
 const pageRouter = require('./routes/page');
 const userRouter = require('./routes/user');
+const extinguisherRouter = require('./routes/extinguisher');
 
 
 dotenv.config();
@@ -47,6 +48,7 @@ app.use(passport.session());
 
 app.use("/",pageRouter);
 app.use("/user",userRouter);
+app.use("/extinguisher",extinguisherRouter);
 
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
