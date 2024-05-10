@@ -3,17 +3,30 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const passport = require('passport');
+const passportConfig =require('./passport/index');
+const {sequelize} = require('./models/index')
 const path = require('path');
 const pageRouter = require('./routes/page');
 const userRouter = require('./routes/user');
 
+
 dotenv.config();
+passportConfig();
 
 const app = express();
 
 app.set('port',process.env.PORT || 3000);
 app.set('view engine','ejs');
 app.set('views',__dirname+'/views');
+
+sequelize.sync({ force: false })
+  .then(() => {
+    console.log('데이터베이스 연결 성공');
+  })
+  .catch((err) => {
+    console.error(err);
+});
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname,'public')));
@@ -29,6 +42,8 @@ app.use(session({
         secure:false,
     }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/",pageRouter);
 app.use("/user",userRouter);
