@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Facebook Clone</title>
+    <title>Fire-Extinguisher-Management</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.5/paper-core.min.js"></script>
@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/global.css">
     <link rel="stylesheet" href="/users/login.css">
 </head>
-<body>
 
     <style>
         #profile-signup {
@@ -82,22 +81,14 @@
           <div class="left">
             <div class="content">
               <h2>Sign Up</h2>
-              <form id="form-signup" method="POST" action="/user/register" enctype="multipart/form-data">
+              <form id="form-signup" method="POST" action="/user/join" >
                 <div class="form-element form-stack">
                   <label for="email" class="form-label">Email</label>
-                  <input id="email" type="email" name="username">
+                  <input id="email" type="email" name="email">
                 </div>
                 <div class="form-element form-stack">
-                  <label for="firstname-signup" class="form-label">First Name</label>
-                  <input id="firstname-signup" type="text" name="firstname">
-                </div>
-                <div class="form-element form-stack">
-                    <label for="lastname-signup" class="form-label">Last Name</label>
-                    <input id="lastname-signup" type="text" name="lastname">
-                </div>
-                <div class="form-element form-stack">
-                    <label for="profile-signup" id="profile-label-signup"><span>Profile Picture</span></label>
-                    <input type="file" id="profile-signup" name="image" accept="image/*">
+                  <label for="nick" class="form-label">ID</label>
+                  <input id="nick" type="text" name="nick">
                 </div>
                 <div class="form-element form-stack">
                   <label for="password-signup" class="form-label">Password</label>
@@ -115,8 +106,8 @@
               <h2>Login</h2>
               <form id="form-login" method="POST" action="/user/login">
                 <div class="form-element form-stack">
-                  <label for="username-login" class="form-label">Email</label>
-                  <input id="username-login" type="email" name="username">
+                  <label for="username-login" class="form-label">ID</label>
+                  <input id="username-login" type="text" name="nick">
                 </div>
                 <div class="form-element form-stack">
                   <label for="password-login" class="form-label">Password</label>
@@ -133,24 +124,6 @@
       </div>
     
     <script>
-        // If user picks a profile picture he can see the name of the file
-        let fileInput = document.querySelector( '#profile-signup' );
-        let label	 = document.querySelector("#profile-label-signup");
-        let labelVal = label.innerHTML;
-
-        fileInput.addEventListener( 'change', function( e )
-        {
-            let fileName = '';
-            if( fileInput.files && fileInput.files.length > 1 )
-                fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', fileInput.files.length );
-            else
-                fileName = e.target.value.split( '\\' ).pop();
-
-            if( fileName )
-                label.querySelector( 'span' ).innerHTML = fileName;
-            else
-                label.innerHTML = labelVal;
-        });
 
     /* ====================== *
     *  Toggle Between        *
@@ -350,4 +323,4 @@
 
         
     </script>
-</body>
+<%- include('../partials/footer') %>
