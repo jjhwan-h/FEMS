@@ -12,5 +12,4 @@ router.get('/info',(req,res)=>{
     res.render('pages/info')
 })
 
-
 module.exports = router;

@@ -9,9 +9,14 @@
         else{
             alert(msg);
         }
-
+      }
+      if(new URL(location.href).searchParams.get('id')){
+        const msg= new URL(location.href).searchParams.get('id');
+        alert(`등록한 소화기의 id는 ${msg}입니다.`)
       }
     };
+   
+
   </script>
     </body>
 </html>
