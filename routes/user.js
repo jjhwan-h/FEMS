@@ -1,19 +1,13 @@
 
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const {join, login, logout} = require('../controllers/user');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 
-//GET  /user/management
-router.get('/management',isLoggedIn,(req,res)=>{
-    res.render('users/management');
-});
-
 //GET  /user/profile
 router.get('/profile',isLoggedIn,(req,res)=>{
-    res.render('users/profile',{user:{name:"jjang",_id:"1234"},login:true,error:null,success:true})
-})
+    res.render('users/profile',)
+});
 
 // POST /user/join
 router.post('/join', isNotLoggedIn, join); 

@@ -47,6 +47,7 @@ class Extinguisher extends Sequelize.Model {
             type:Sequelize.STRING(200),
             allowNull:(true),
         }  
+
         
     }, {
       sequelize,

@@ -46,3 +46,4 @@ exports.management = async (req,res)=>{
       return res.redirect(`/?error=${error}`);
     }
   };
+

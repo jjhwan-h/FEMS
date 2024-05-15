@@ -25,7 +25,7 @@ const upload=
      }
     });
 // POST /extinguisher/register
-router.post('/register', isLoggedIn, upload.single("img") ,registerExtinguisher); //TODO::multer추가
+router.post('/register', isLoggedIn, upload.single("img") ,registerExtinguisher);
 
 //GET /extinguisher/register
 router.get('/register', isLoggedIn, (req,res)=>
@@ -34,5 +34,6 @@ router.get('/register', isLoggedIn, (req,res)=>
 
 //GET  /extinguisher/management
 router.get('/management',isLoggedIn,management);
+
 
 module.exports = router;
