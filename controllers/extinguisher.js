@@ -26,7 +26,7 @@ exports.registerExtinguisher = async (req,res)=>{
     res.status(200).redirect(`/extinguisher/register?id=${result.dataValues.id}`);
     }catch(error){
         console.error(error);
-        return res.redirect(`/?error=${error}`);
+        return res.redirect(`/extinguisher/register?error=${error}`);
     }
 }
 
@@ -43,7 +43,7 @@ exports.management = async (req,res)=>{
       res.render('extinguishers/management',{extinguishers});
     }catch(err){
       console.error(err);
-      return res.redirect(`/?error=${error}`);
+      return res.redirect(`/extinguishers/management/?error=${error}`);
     }
   };
 
