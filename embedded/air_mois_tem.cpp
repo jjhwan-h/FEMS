@@ -1,8 +1,8 @@
 #include "DHT.h"
 
-
 #define DHTPIN 2      
 #define DHTTYPE DHT22 
+// vcc, data, nc, gnd 중 nc 사용 x 
 
 DHT dht(DHTPIN, DHTTYPE);
 
