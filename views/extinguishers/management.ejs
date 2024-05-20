@@ -35,14 +35,29 @@
                 stateSpan.addClass('bg-warning');
             }
             $('#extinguisher-header').append(stateSpan);
-            $('#desc').html(`${el.desc}`);
+            $('#desc').val(`${el.desc}`);
             $('#humidity').css("width",`${el.humidity}`);
             $('#humidity').html(`${el.humidity}%`);
             $('#temp').css("width",`${el.temp}`);
             $('#temp').html(`${el.temp}°C`);
             $('#press').css("width",`${el.press}`);
             $('#press').html(`${el.press}㎏/㎠`);
-            
+            $('#manufacturer').val(`${el.manufacturer}`);
+            $('#name').val(`${el.name}`);
+            $('#latitude').val(`${el.latitude}`);
+            $('#longitude').val(`${el.longitude}`);
+            $('#date').html(`${el.date}`);
+
+            $("#modify").click(()=>{
+                $('.form-control').prop('disabled',false);
+                $('<input>').attr({
+                type: 'hidden',
+                name: 'extinguisher-id',
+                value: el.id
+            }).appendTo('#update-form');
+                $('#modify').text('제출');
+                $('#modify').attr("type","submit");
+            });
             $('.offcanvas').offcanvas('show');
             // $('.toast').toast('show');
         });
