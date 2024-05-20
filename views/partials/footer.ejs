@@ -14,6 +14,12 @@
         const msg= new URL(location.href).searchParams.get('id');
         alert(`등록한 소화기의 id는 ${msg}입니다.`)
       }
+      if(new URL(location.href).searchParams.get('res')){
+        const msg= new URL(location.href).searchParams.get('res');
+        if(msg) alert(`업데이트가 완료되었습니다.`)
+        else alert(`업데이트에 실패하였습니다.`)
+      }
+      
     };
    
 

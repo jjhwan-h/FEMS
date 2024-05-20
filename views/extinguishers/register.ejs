@@ -13,7 +13,7 @@
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">현재상태</span>
-      <select class="form-select" aria-label="Default select example" name="state" required>
+      <select class="form-select" aria-label="state" name="state" required>
         <option disabled>상태를 선택하세요.</option>
         <option value="안전">안전</option>
         <option value="점검필요">점검필요</option>
@@ -30,7 +30,7 @@
       <input type="date"  aria-label="date" name="date" required>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 image">
       <label for="formFile" class="form-label">소화기 사진</label>
       <input class="form-control" type="file"  id="img" name="img">
     </div>
@@ -294,6 +294,8 @@
               el.removeChild (el.lastChild);
           }
       }
+
+      
     </script>
     
 <%- include('../partials/footer') %>

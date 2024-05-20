@@ -4,7 +4,7 @@ const multerGoogleStorage = require('multer-google-storage');
 const dotenv =require('dotenv');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 const {registerExtinguisher} = require('../controllers/extinguisher');
-const {management} = require('../controllers/extinguisher');;
+const {management, extinguisherUpdate} = require('../controllers/extinguisher');;
 
 dotenv.config();
 
@@ -35,5 +35,7 @@ router.get('/register', isLoggedIn, (req,res)=>
 //GET  /extinguisher/management
 router.get('/management',isLoggedIn,management);
 
+//POST /extinguisher/update
+router.post('/update',isLoggedIn,extinguisherUpdate);
 
 module.exports = router;

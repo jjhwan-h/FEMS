@@ -45,5 +45,33 @@ exports.management = async (req,res)=>{
       console.error(err);
       return res.redirect(`/extinguishers/management/?error=${error}`);
     }
-  };
+};
+
+exports.extinguisherUpdate = async (req,res)=>{
+  try{
+    let extinguisher = req.body;
+    //console.log(extinguisher)
+    // /**소수점 자릿수 제한 */
+    //console.log(parseFloat(extinguisher.latitude).toFixed(9))
+    extinguisher.latitude = parseFloat(extinguisher.latitude).toFixed(9);
+    extinguisher.longitude = parseFloat(extinguisher.longitude).toFixed(9);
+    // /**제어문자 제거 */
+    extinguisher.desc.replace(/[\x00-\x1F\x7F]/g, "");
+    extinguisher.name.replace(/[\x00-\x1F\x7F]/g, "");
+    extinguisher.manufacturer.replace(/[\x00-\x1F\x7F]/g, "");
+    // /**소화기의 관리인 */
+    extinguisher.UserId=req.user.id;
+    
+    // const el = await Extinguisher.findOne({where:extinguisher['extinguisher-id'][0]});
+    // console.log(el);
+    const result = await Extinguisher.update(extinguisher,
+      {where:{id:extinguisher['extinguisher-id'][0]}});
+    //console.log(result);
+    if(result) return res.redirect('/extinguisher/management/?res=1');
+    else return res.redirect('/extinguisher/management/?res=0');
+    }catch(error){
+        console.error(error);
+        return res.redirect(`/extinguisher/register?error=${error}`);
+    }
+}
 
