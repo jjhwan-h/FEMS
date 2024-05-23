@@ -38,8 +38,7 @@ exports.login = (req, res, next) => {
         return next(loginError);
       }
 
-      return res.redirect('/extinguisher/management');
-
+      return res.redirect('/extinguishers');
     });
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 };
@@ -50,19 +49,3 @@ exports.logout = (req, res) => {
   });
 };
 
-exports.management = async (req,res)=>{
-  try{
-    let extinguishers = await Extinguisher.findAll(
-      {where:{UserId:req.user.id}}
-    );
-    extinguishers = extinguishers.map((el)=>{
-        return el.dataValues;
-    });
-    extinguishers=JSON.stringify(extinguishers);
-    console.log(extinguishers);
-    res.render('users/management',{extinguishers});
-  }catch(err){
-    console.error(err);
-    next(err);
-  }
-};

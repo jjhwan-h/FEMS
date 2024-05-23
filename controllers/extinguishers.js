@@ -23,10 +23,10 @@ exports.registerExtinguisher = async (req,res)=>{
     // await Extinguisher.bulkCreate(extinguisher)
     const result = await Extinguisher.create(extinguisher);
     console.log(result.dataValues.id);
-    res.status(200).redirect(`/extinguisher/register?id=${result.dataValues.id}`);
+    res.status(200).redirect(`/extinguishers?id=${result.dataValues.id}`);
     }catch(error){
         console.error(error);
-        return res.redirect(`/extinguisher/register?error=${error}`);
+        return res.redirect(`/extinguishers?error=${error}`);
     }
 }
 
@@ -39,18 +39,17 @@ exports.management = async (req,res)=>{
           return el.dataValues;
       });
       extinguishers=JSON.stringify(extinguishers);
-      console.log(extinguishers);
       res.render('extinguishers/management',{extinguishers});
     }catch(err){
       console.error(err);
-      return res.redirect(`/extinguishers/management/?error=${error}`);
+      return res.redirect(`/extinguishers/?error=${error}`);
     }
 };
 
-exports.extinguisherUpdate = async (req,res)=>{
+exports.patchExtinguisher = async (req,res)=>{
   try{
     let extinguisher = req.body;
-    //console.log(extinguisher)
+    console.log(`~~~~${extinguisher}~~~~~`)
     // /**소수점 자릿수 제한 */
     //console.log(parseFloat(extinguisher.latitude).toFixed(9))
     extinguisher.latitude = parseFloat(extinguisher.latitude).toFixed(9);
@@ -67,11 +66,11 @@ exports.extinguisherUpdate = async (req,res)=>{
     const result = await Extinguisher.update(extinguisher,
       {where:{id:extinguisher['extinguisher-id'][0]}});
     //console.log(result);
-    if(result) return res.redirect('/extinguisher/management/?res=1');
-    else return res.redirect('/extinguisher/management/?res=0');
+    if(result) return res.redirect('/extinguishers?res=1');
+    else return res.redirect('/extinguishers?res=0');
     }catch(error){
         console.error(error);
-        return res.redirect(`/extinguisher/register?error=${error}`);
+        return res.redirect(`/registration?error=${error}`);
     }
 }
 

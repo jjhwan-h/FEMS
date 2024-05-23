@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
-<%- include('../users/toast') %>
-<%- include('../users/offcanvas') %>
+<%- include('./toast') %>
+<%- include('./offcanvas') %>
 <div id="map" style="width:100%;height:1280px;"></div>
     <script>
         let extinguishers = '<%=extinguishers%>';
@@ -57,7 +57,48 @@
             }).appendTo('#update-form');
                 $('#modify').text('제출');
                 $('#modify').attr("type","submit");
+            }); 
+            $("#update-form").submit(()=>{
+                event.preventDefault(); // Prevent the default form submission
+                let formData = $("#update-form").serializeArray();
+                //console.log(JSON.stringify(formData));
+                let object={};
+                formData.forEach((el)=>{
+                    object[el.name] = el.value;
+                });
+
+                $.ajax({
+                    url: '/extinguishers', // PATCH 요청을 보낼 엔드포인트 URL
+                    type: 'PATCH',
+                    contentType: 'application/json',
+                    data: JSON.stringify(object),
+                    success: function(response) {
+                      // 요청이 성공적으로 처리된 경우
+                      console.log(response); // 서버에서 반환한 응답 확인
+                    },
+                    error: function(xhr, status, error) {
+                      // 요청이 실패한 경우
+                      console.error(xhr.responseText); // 에러 메시지 표시
+                    }
+                });
             });
+            $("#delete").click(()=>{
+                $.ajax({
+                    url: '/extinguishers', // PATCH 요청을 보낼 엔드포인트 URL
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                    data: JSON.stringify(object),
+                    success: function(response) {
+                      // 요청이 성공적으로 처리된 경우
+                      console.log(response); // 서버에서 반환한 응답 확인
+                    },
+                    error: function(xhr, status, error) {
+                      // 요청이 실패한 경우
+                      console.error(xhr.responseText); // 에러 메시지 표시
+                    }
+                });
+            })
+
             $('.offcanvas').offcanvas('show');
             // $('.toast').toast('show');
         });
