@@ -21,9 +21,10 @@ exports.registerExtinguisher = async (req,res)=>{
     //         return el;
     // });
     // await Extinguisher.bulkCreate(extinguisher)
-    const result = await Extinguisher.create(extinguisher);
-    console.log(result.dataValues.id);
-    res.status(200).redirect(`/extinguishers?id=${result.dataValues.id}`);
+    await Extinguisher.create(extinguisher).then((el)=>{
+      console.log(el.dataValues.id);
+      res.redirect(`/extinguishers?id=${el.dataValues.id}`);
+    });
     }catch(error){
         console.error(error);
         return res.redirect(`/extinguishers?error=${error}`);
@@ -49,7 +50,7 @@ exports.management = async (req,res)=>{
 exports.patchExtinguisher = async (req,res)=>{
   try{
     let extinguisher = req.body;
-    console.log(`~~~~${extinguisher}~~~~~`)
+    console.log(extinguisher)
     // /**소수점 자릿수 제한 */
     //console.log(parseFloat(extinguisher.latitude).toFixed(9))
     extinguisher.latitude = parseFloat(extinguisher.latitude).toFixed(9);
@@ -64,13 +65,24 @@ exports.patchExtinguisher = async (req,res)=>{
     // const el = await Extinguisher.findOne({where:extinguisher['extinguisher-id'][0]});
     // console.log(el);
     const result = await Extinguisher.update(extinguisher,
-      {where:{id:extinguisher['extinguisher-id'][0]}});
-    //console.log(result);
-    if(result) return res.redirect('/extinguishers?res=1');
-    else return res.redirect('/extinguishers?res=0');
+      {where:{id:extinguisher['extinguisher-id']}}).then(()=>{
+        return res.json({url:'/extinguishers?res=1'});
+      })
     }catch(error){
         console.error(error);
         return res.redirect(`/registration?error=${error}`);
     }
+}
+
+exports.deleteExtinguisher = async (req,res)=>{
+  try{
+    const id = req.body.id.match(/\d+/)[0]; // #소화기"숫자"에서 숫자만 추출
+    await Extinguisher.destroy({where:{id:id}}).then(()=>{
+      return res.json({url:'/extinguishers?res=1'});
+    })
+  }catch(error){
+    console.error(error);
+    return res.redirect(`/registration?error=${error}`);
+  }
 }
 

@@ -3,8 +3,7 @@ const multer = require('multer');
 const multerGoogleStorage = require('multer-google-storage');
 const dotenv =require('dotenv');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
-const {registerExtinguisher} = require('../controllers/extinguishers');
-const {patchExtinguisher} = require('../controllers/extinguishers');
+const {registerExtinguisher,patchExtinguisher,deleteExtinguisher} = require('../controllers/extinguishers');
 
 dotenv.config();
 
@@ -30,8 +29,7 @@ router.post('', isLoggedIn, upload.single("img") ,registerExtinguisher);
 //PATCH /extinguishers
 router.patch('',isLoggedIn,patchExtinguisher);
 
-//TODO::
 //DELETE /extinguishers
-router.delete('',isLoggedIn,);
+router.delete('',isLoggedIn,deleteExtinguisher);
 
 module.exports = router;
