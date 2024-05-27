@@ -5,7 +5,6 @@
         if(msg==="exist"){
             alert("이미 존재하는 ID입니다.");
         }
-        
         else{
             alert(msg);
         }
@@ -14,6 +13,12 @@
         const msg= new URL(location.href).searchParams.get('id');
         alert(`등록한 소화기의 id는 ${msg}입니다.`)
       }
+      if(new URL(location.href).searchParams.get('res')){
+        const msg= new URL(location.href).searchParams.get('res');
+        if(msg==1) alert(`완료되었습니다.`)
+        else alert(`실패하였습니다.`)
+      }
+      
     };
    
 

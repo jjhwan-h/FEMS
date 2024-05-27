@@ -3,8 +3,7 @@ const multer = require('multer');
 const multerGoogleStorage = require('multer-google-storage');
 const dotenv =require('dotenv');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
-const {registerExtinguisher} = require('../controllers/extinguisher');
-const {management} = require('../controllers/extinguisher');;
+const {registerExtinguisher,patchExtinguisher,deleteExtinguisher} = require('../controllers/extinguishers');
 
 dotenv.config();
 
@@ -24,16 +23,13 @@ const upload=
         fileSize:5*1024*1024,
      }
     });
-// POST /extinguisher/register
-router.post('/register', isLoggedIn, upload.single("img") ,registerExtinguisher);
+// POST /extinguishers
+router.post('', isLoggedIn, upload.single("img") ,registerExtinguisher);
 
-//GET /extinguisher/register
-router.get('/register', isLoggedIn, (req,res)=>
-        res.render('extinguishers/register')
-);
+//PATCH /extinguishers
+router.patch('',isLoggedIn,patchExtinguisher);
 
-//GET  /extinguisher/management
-router.get('/management',isLoggedIn,management);
-
+//DELETE /extinguishers
+router.delete('',isLoggedIn,deleteExtinguisher);
 
 module.exports = router;

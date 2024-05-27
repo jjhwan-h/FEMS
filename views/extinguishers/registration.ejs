@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 <h2>소화기 등록</h2>
-<form action="/extinguisher/register" method="post" enctype="multipart/form-data">
+<form action="/extinguishers" method="post" enctype="multipart/form-data">
     <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">제조자</span>
         <input type="text" class="form-control" placeholder="제조자명" aria-label="manufacturer" aria-describedby="basic-addon1" name="manufacturer">
@@ -13,7 +13,7 @@
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">현재상태</span>
-      <select class="form-select" aria-label="Default select example" name="state" required>
+      <select class="form-select" aria-label="state" name="state" required>
         <option disabled>상태를 선택하세요.</option>
         <option value="안전">안전</option>
         <option value="점검필요">점검필요</option>
@@ -30,7 +30,7 @@
       <input type="date"  aria-label="date" name="date" required>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-3 image">
       <label for="formFile" class="form-label">소화기 사진</label>
       <input class="form-control" type="file"  id="img" name="img">
     </div>
@@ -48,7 +48,7 @@
   <br>
     </div>
     <div class="map_wrap">
-        <div id="map" style="width:50%;height:300px;position:relative;overflow:hidden;"></div>
+        <div id="map" style="width:100%;height:300px;position:relative;overflow:hidden;"></div>
     
         <div id="menu_wrap" class="bg_white">
             <div class="option">
@@ -294,6 +294,8 @@
               el.removeChild (el.lastChild);
           }
       }
+
+      
     </script>
     
 <%- include('../partials/footer') %>
