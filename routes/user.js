@@ -1,16 +1,21 @@
 
 const express = require('express');
 const router = express.Router();
-const {join, login, logout} = require('../controllers/users');
+const {join, login, logout} = require('../controllers/user');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 
-// POST /users/join
+//GET  /user/profile
+router.get('/profile',isLoggedIn,(req,res)=>{
+    res.render('users/profile',)
+});
+
+// POST /user/join
 router.post('/join', isNotLoggedIn, join); 
 
-// POST /users/login
+// POST /user/login
 router.post('/login', isNotLoggedIn, login);
 
-//GET /users/logout
+//GET /user/logout
 router.get('/logout', isLoggedIn,logout);
 
 module.exports = router;
