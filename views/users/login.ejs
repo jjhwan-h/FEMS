@@ -52,7 +52,7 @@
           <div class="left">
             <div class="content">
               <h2>Sign Up</h2>
-              <form id="form-signup" method="POST" action="/users/join" >
+              <form id="form-signup" method="POST" action="/user/join" >
                 <div class="form-element form-stack">
                   <label for="email" class="form-label">Email</label>
                   <input id="email" type="email" name="email">
@@ -75,7 +75,7 @@
           <div class="right">
             <div class="content">
               <h2>Login</h2>
-              <form id="form-login" method="POST" action="/users/login">
+              <form id="form-login" method="POST" action="/user/login">
                 <div class="form-element form-stack">
                   <label for="username-login" class="form-label">ID</label>
                   <input id="username-login" type="text" name="nick">
@@ -132,8 +132,8 @@
         * ====================== */
         paper.install(window);
         paper.setup(document.getElementById("canvas"));
-        var raster = new Raster('https://storage.googleapis.com/extinguisher-storage/fire-extinguisher-712975_1280-min.jpg');
-        var raster2 = new Raster('https://storage.googleapis.com/extinguisher-storage/fire-extinguisher-712975_1280-min.jpg');
+        var raster = new Raster('/fire-extinguisher.jpg');
+        var raster2 = new Raster('/fire-extinguisher.jpg');
         // 배경 이미지를 화면에 맞춰서 크기 조절
         canvasWidth = view.size.width;
         canvasHeight = view.size.height;
