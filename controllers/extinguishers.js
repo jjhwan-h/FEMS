@@ -51,23 +51,27 @@ exports.patchExtinguisher = async (req,res)=>{
   try{
     let extinguisher = req.body;
     console.log(extinguisher)
-    // /**소수점 자릿수 제한 */
-    //console.log(parseFloat(extinguisher.latitude).toFixed(9))
-    extinguisher.latitude = parseFloat(extinguisher.latitude).toFixed(9);
-    extinguisher.longitude = parseFloat(extinguisher.longitude).toFixed(9);
-    // /**제어문자 제거 */
-    extinguisher.desc.replace(/[\x00-\x1F\x7F]/g, "");
-    extinguisher.name.replace(/[\x00-\x1F\x7F]/g, "");
-    extinguisher.manufacturer.replace(/[\x00-\x1F\x7F]/g, "");
-    // /**소화기의 관리인 */
-    extinguisher.UserId=req.user.id;
-    
-    // const el = await Extinguisher.findOne({where:extinguisher['extinguisher-id'][0]});
-    // console.log(el);
-    const result = await Extinguisher.update(extinguisher,
-      {where:{id:extinguisher['extinguisher-id']}}).then(()=>{
-        return res.json({url:'/extinguishers?res=1'});
-      })
+    if(req.body.raspi){ //raspi으로부터의 온/습도, 기압정보 patch요청
+    }
+    else{ //클라이언트로부터의 명세, 이름, 제조업자, 제조일자 patch요청
+      // /**소수점 자릿수 제한 */
+      //console.log(parseFloat(extinguisher.latitude).toFixed(9))
+      extinguisher.latitude = parseFloat(extinguisher.latitude).toFixed(9);
+      extinguisher.longitude = parseFloat(extinguisher.longitude).toFixed(9);
+      // /**제어문자 제거 */
+      extinguisher.desc.replace(/[\x00-\x1F\x7F]/g, "");
+      extinguisher.name.replace(/[\x00-\x1F\x7F]/g, "");
+      extinguisher.manufacturer.replace(/[\x00-\x1F\x7F]/g, "");
+      // /**소화기의 관리인 */
+      extinguisher.UserId=req.user.id;
+      
+      // const el = await Extinguisher.findOne({where:extinguisher['extinguisher-id'][0]});
+      // console.log(el);
+      const result = await Extinguisher.update(extinguisher,
+        {where:{id:extinguisher['extinguisher-id']}}).then(()=>{
+          return res.json({url:'/extinguishers?res=1'});
+        })
+    }
     }catch(error){
         console.error(error);
         return res.redirect(`/registration?error=${error}`);
