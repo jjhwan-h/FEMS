@@ -1,11 +1,12 @@
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 const {management} = require('../controllers/extinguishers');
+const {getProfile} = require('../controllers/users');
 
 const express = require('express');
 const router = express.Router();
 
 //GET /
-router.get('/',(req,res)=>{
+router.get('/',isNotLoggedIn,(req,res)=>{
     res.render('users/login');
 });
 
@@ -18,11 +19,8 @@ router.get('/registration',isLoggedIn,(req,res)=>{
 });
 
 //TODO::
-//GET /
-router.get('/users',isLoggedIn,(req,res)=>{
-    //req.params.id를 통해 user정보찾은후
-    //users/profile로 렌더링
-});
+//GET /users
+router.get('/users',isLoggedIn,getProfile);
 
 //GET /info
 router.get('/info',isLoggedIn,(req,res)=>{

@@ -44,8 +44,25 @@ exports.login = (req, res, next) => {
 };
 
 exports.logout = (req, res) => {
-  req.logout(() => {
-    res.redirect('/');
+  req.logout((err) => {
+    if(err){return next(err);}
+    req.session.destroy((err)=>{
+      if(err) {return next(err);}
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    })
   });
 };
+
+exports.getProfile = async (req,res)=>{
+  try{
+    const userId = req.user.id;
+    const user = await User.findOne({where:userId});
+    res.render("users/profile",{user});
+  }catch(err){
+    console.error(err);
+    return res.redirect(`/extinguishers/?error=${error}`);
+  }
+
+}
 
