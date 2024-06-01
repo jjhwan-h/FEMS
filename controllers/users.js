@@ -57,8 +57,18 @@ exports.logout = (req, res) => {
 exports.getProfile = async (req,res)=>{
   try{
     const userId = req.user.id;
-    const user = await User.findOne({where:userId});
-    res.render("users/profile",{user});
+    let user = await User.findOne(
+      {where:{id:userId},
+        include:[{
+          model:Extinguisher,
+        attributes:['id','name'],
+        }]
+      }
+    );
+    user = user.dataValues;
+    const {password, deletedAt, ...info} = user;
+    console.log(info)
+    res.render("users/profile",{info});
   }catch(err){
     console.error(err);
     return res.redirect(`/extinguishers/?error=${error}`);
