@@ -51,9 +51,7 @@ exports.patchExtinguisher = async (req,res)=>{
   try{
     let extinguisher = req.body;
     console.log(extinguisher)
-    if(req.body.raspi){ //raspi으로부터의 온/습도, 기압정보 patch요청
-    }
-    else{ //클라이언트로부터의 명세, 이름, 제조업자, 제조일자 patch요청
+     //클라이언트로부터의 명세, 이름, 제조업자, 제조일자 patch요청
       // /**소수점 자릿수 제한 */
       //console.log(parseFloat(extinguisher.latitude).toFixed(9))
       extinguisher.latitude = parseFloat(extinguisher.latitude).toFixed(9);
@@ -71,7 +69,6 @@ exports.patchExtinguisher = async (req,res)=>{
         {where:{id:extinguisher['extinguisher-id']}}).then(()=>{
           return res.json({url:'/extinguishers?res=1'});
         })
-    }
     }catch(error){
         console.error(error);
         return res.redirect(`/registration?error=${error}`);
@@ -90,3 +87,26 @@ exports.deleteExtinguisher = async (req,res)=>{
   }
 }
 
+exports.raspiExtinguisher = async(req,res)=>{
+  try{
+    let extinguisher={};
+    const measure = Object.keys(req.body);
+    console.log(measure);
+    const parts = measure[0].split(',').map((el)=>el.trim("\r"));
+    console.log(parts);
+    
+    extinguisher.humidity = parseFloat(parts[1]);
+    extinguisher.temp = parseFloat(parts[0]);
+    const id = parts[2];
+    console.log(extinguisher);
+    console.log(id);
+
+    const result = await Extinguisher.update(extinguisher,
+      {where:{id:id}}).then(()=>{
+        return res.send("good");
+      })
+  }catch(error){
+    console.error(error);
+    return res.send(error);
+  }
+}
