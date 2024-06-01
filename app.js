@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const session = require('express-session');
+const nocache = require('nocache');
 const dotenv = require('dotenv');
 const passport = require('passport');
 const passportConfig =require('./passport/index');
@@ -45,6 +46,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(nocache());
 
 app.use("/",pageRouter);
 app.use("/users",userRouter);
