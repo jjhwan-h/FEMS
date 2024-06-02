@@ -1,4 +1,6 @@
 const Extinguisher = require('../models/extinguisher');
+const Email = require('../config/email');
+const User = require('../models/user');
 
 exports.registerExtinguisher = async (req,res)=>{
   try{
@@ -100,8 +102,63 @@ exports.raspiExtinguisher = async(req,res)=>{
     const id = parts[2];
     console.log(extinguisher);
     console.log(id);
+    
+    if(extinguisher.temp>40 || extinguisher.humidity>80){
+      const emailTo = await Extinguisher.findOne(
+        {where:{id:id},
+        include:[{
+          model:User,
+        attributes:['email'],
+        }]
+      });
+      console.log(emailTo.User.dataValues.email);
+      if(emailTo.User.dataValues.email){
+        const mailOptions = {
+          to: emailTo.User.dataValues.email,
+          html:` 
+          <!DOCTYPE html>
+        <html>
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body>
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #cccccc; border-radius: 10px; background-color: #f9f9f9;">
+                  <div style="background-color: #f44336; color: white; padding: 10px; text-align: center; border-radius: 10px 10px 0 0;">
+                      <h1>Warning</h1>
+                  </div>
+                  <div style="padding: 20px;">
+                      <p style="color: #f44336; font-weight: bold;">Attention Required:</p>
+                      <p>관리하는 소화기 중 온/습도가 높아 확인이 필요한 소화기가 있습니다.</p>
+                      <ul>
+                          <li>소화기 번호: ${emailTo.id}</li>
+                          <li>소화기 온도: ${emailTo.temp}°C</li>
+                          <li>소화기 습도: ${emailTo.humidity}%</li>
+                      </ul>
+                      <div style="text-align: center; margin-top: 20px;">
+                          <a href="웹주소" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">Take Action</a>
+                      </div>
+                  </div>
+              </div>
+          </body>
+        </html>
+        }`
+      };
+  
+      await Email.transporter.sendMail(mailOptions,(err,response)=>{
+        if(err) {
+          console.log(err);
+        }
+        else{
+          console.log("Email sent successfully");
+        }
+        Email.transporter.close() //전송종료
+      });
+      }
+      extinguisher.state='점검필요';
+    }
 
-    const result = await Extinguisher.update(extinguisher,
+    await Extinguisher.update(extinguisher,
       {where:{id:id}}).then(()=>{
         return res.send("good");
       })
