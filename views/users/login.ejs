@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="/global.css">
     <link rel="stylesheet" href="/users/login.css">
 </head>
-
+<script type="text/javascript">
+    window.history.forward();
+    function noBack(){window.history.forward();} // 이 페이지로의 뒤로가기 차단
+</script>
+   
     <style>
         #profile-signup {
             width: 0.1px;
@@ -38,7 +42,7 @@
             background: red;
         }
     </style>
-
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
     <div id="back">
         <canvas id="canvas" class="canvas-back"></canvas>
         <div class="backRight">    
@@ -93,7 +97,7 @@
           </div>
         </div>
       </div>
-    
+    </body>
     <script>
 
     /* ====================== *

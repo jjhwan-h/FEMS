@@ -44,8 +44,35 @@ exports.login = (req, res, next) => {
 };
 
 exports.logout = (req, res) => {
-  req.logout(() => {
-    res.redirect('/');
+  req.logout((err) => {
+    if(err){return next(err);}
+    req.session.destroy((err)=>{
+      if(err) {return next(err);}
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    })
   });
 };
+
+exports.getProfile = async (req,res)=>{
+  try{
+    const userId = req.user.id;
+    let user = await User.findOne(
+      {where:{id:userId},
+        include:[{
+          model:Extinguisher,
+        attributes:['id','name'],
+        }]
+      }
+    );
+    user = user.dataValues;
+    const {password, deletedAt, ...info} = user;
+    console.log(info)
+    res.render("users/profile",{info});
+  }catch(err){
+    console.error(err);
+    return res.redirect(`/extinguishers/?error=${error}`);
+  }
+
+}
 
