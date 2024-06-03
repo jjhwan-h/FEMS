@@ -2,14 +2,22 @@
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
       <div class="toast-header">
-        <img src="/test.jpg" width="20px" height="20px" class="rounded me-2" alt="/test.jpg">
-        <strong class="me-auto">Bootstrap</strong>
-        <small>11 mins ago</small>
+        <img src="/test.jpg" width="20px" height="20px" class="rounded me-2" alt="/test.jpg" id="toast-img">
+        <strong class="me-auto">소화기 관리시스템</strong>
+        <small></small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        <h5>새로운 소화기 등록알림</h5>
-        <button type="button" class="btn btn-primary btn-sm">등록</button>
+        <h5>점검이 필요한 소화기</h5>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">소화기 id</span>
+          <input type="text" class="form-control" placeholder="id" aria-label="manufacturer" aria-describedby="basic-addon1" id="toast-extinguisher-id" disabled>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">제품명</span>
+          <input type="text" class="form-control" placeholder="소화기명" aria-label="extinguisher" aria-describedby="basic-addon2" id="toast-name" disabled>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm">점검완료</button>
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">취소</button>
       </div>
     </div>

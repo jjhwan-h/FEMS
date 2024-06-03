@@ -3,6 +3,7 @@
 <%- include('./offcanvas') %>
 <div id="map" style="width:100%;height:1280px;"></div>
     <script>
+        let warn={};
         let extinguishers = '<%=extinguishers%>';
         extinguishers=JSON.parse(extinguishers.replace(/&#34;/g, '"'));
         console.log(extinguishers.length);
@@ -20,6 +21,11 @@
                 title:`${el.id}`,
             });
             marker.setMap(map);
+
+            if(el.state!='안전'){
+                    warn[el.id]=[el.img,el.name];
+                    console.log(warn)
+                }
 
             kakao.maps.event.addListener(marker, 'click', ()=>{
                 $('#image').attr("src",`${el.img}`);
@@ -101,20 +107,26 @@
                             console.error(xhr.responseText); // 에러 메시지 표시
                         }
                     });
-                })
+                });
+
+                // if(el.state!='안전'){
+                //     $('#toast-img').attr("src",`${el.img}`);
+                //     $('#toast-extinguisher-id').val(`소화기#${el.id}`);
+                //     $('#toast-name').val(`${el.name}`);
+                //     $('.toast').toast('show');
+                // }
 
                 $('.offcanvas').offcanvas('show');
-                // $('.toast').toast('show');
                 });
             })
-            }
+            } 
             else{
                 var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
                 center : new kakao.maps.LatLng("33.449431", "126.570504"), // 지도의 중심좌표
                 level : 7 // 지도의 확대 레벨
             });
         }
-       
+
         // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
         var mapTypeControl = new kakao.maps.MapTypeControl();
 
@@ -126,5 +138,16 @@
         var zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
         
+        window.addEventListener('load', function() {
+            console.log('All resources finished loading!');
+            for (let key in warn) {
+                if (warn.hasOwnProperty(key)) {
+                    $('#toast-img').attr("src",`${warn[key][0]}`);
+                    $('#toast-extinguisher-id').val(`소화기#${key}`);
+                    $('#toast-name').val(`${warn[key][1]}`);
+                    $('.toast').toast('show');
+                }
+            }
+        });
     </script>
 <%- include('../partials/footer') %>
