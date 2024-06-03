@@ -30,8 +30,8 @@
             <h3 class="mt-3">관리중인 소화기</h3>
             <div class="row">
                 <% let extinguishers = info.Extinguishers %>
-                <% const itemsPerPage = 4; // 한 페이지당 표시할 소화기 수 %>
-                <% const pageCount = Math.ceil(extinguishers.length / itemsPerPage); // 페이지 수 계산 %>
+                <% const itemsPerPage = 4;%>
+                <% const pageCount = Math.ceil(extinguishers.length / itemsPerPage);  %>
                 <% for (let page = 0; page < pageCount; page++) { %>
                     <div class="page <%= page === 0 ? 'active' : '' %>">
                         <div class="row">
@@ -58,8 +58,8 @@
                     </div>
                 <% } %>
             </div>
-            <nav aria-label="Page navigation" class="text-center"> <!-- text-center 클래스 추가 -->
-                <ul class="pagination justify-content-center"> <!-- justify-content-center 클래스 추가 -->
+            <nav aria-label="Page navigation" class="text-center">
+                <ul class="pagination justify-content-center"> 
                     <% for (let i = 0; i < pageCount; i++) { %>
                         <li class="page-item <%= i === 0 ? 'active' : '' %>"><a class="page-link text-center" href="#"><%= i + 1 %></a></li> <!-- text-center 클래스 추가 -->
                     <% } %>
