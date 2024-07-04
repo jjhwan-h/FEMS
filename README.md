@@ -8,7 +8,8 @@
 5. [Demo](#demo)
 
 ## FEMS?
-FEMS는 소화기 관리 시스템입니다. 소화기의 상태를 웹애플리케이션에서 간편히 확인할 수 있습니다.
+FEMS는 소화기 관리 시스템입니다.  
+소화기의 상태를 웹애플리케이션에서 간편히 확인할 수 있습니다.  
 아두이노, 라즈베리파이, NRF24L01모듈을 이용하여 센서 값을 전송받으며 이를 이용하여 사용자에게 소화기 상태를 경고 및 알림을 줄 수 있습니다.
 
   <img width="875" alt="image" src="https://github.com/jjhwan-h/FEMS/assets/92563695/be361240-4384-416f-9ec6-e93740031e0c">
@@ -87,7 +88,17 @@ FEMS는 소화기 관리 시스템입니다. 소화기의 상태를 웹애플리
       - 구글 email가입
       - 계정의 앱비밀번호 생성하여 저장
 
-  - 
+  - 아두이노에서 라즈베리 측 아두이노로 센서값 전달
+
+  - 아두이노에서 라즈베리로 시리얼 통신 및 서버로 센서값 전달
+
+  - 서버실행
+
+  - ngrok
+
+# 팀원
+### 소프트웨어학부 장정환 https://github.com/jjhwan-h  
+### 소프트웨어학부 이진경
 
 ## PPT
 https://docs.google.com/presentation/d/1Ui6cg4TD2geBbXyWnBpFWWBV4NxyYxwL/edit?usp=sharing&ouid=101563845514655195312&rtpof=true&sd=true
@@ -97,3 +108,5 @@ https://drive.google.com/drive/folders/1QlDGjs0iyIVKxVqcIHYLpaNYIMONaNLy?usp=sha
 
 ## 참고
 
+https://github.com/nRF24/RF24
+https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf
