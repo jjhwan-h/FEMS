@@ -1,5 +1,8 @@
 # 🧯FEMS🧯
 
+<img width="789" alt="image" src="https://github.com/jjhwan-h/FEMS/assets/92563695/6ae1da7d-c44f-4c51-9031-dec014176e3a">
+
+
 # 목차
 1. [FEMS?](#fems)
 2. [기획배경 및 목적](#기획배경-및-목적)
