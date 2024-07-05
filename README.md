@@ -89,15 +89,26 @@ FEMS는 소화기 관리 시스템입니다.
       - 계정의 앱비밀번호 생성하여 저장
 
   - 아두이노에서 라즈베리 측 아두이노로 센서값 전달
-
+    - 센서쪽 아두이노에서 /arduino/mTx를 실행
+    - 라즈베리 측 아두이노에서 /arduino/mRx를 실행
+    - 하나의 NRF24L01은 125개의 채널과 각 채널별 6개까지의 data pipe를 구축가능하다.
+      ```
+        예시)
+        const uint64_t address[PIPE_CNT]= {0xF1F1F0F0E0LL,0xF1F1F0F0E1LL,0xF1F1F0F0E2LL};           // 송신기와 수신기가 동일한 값으로 주소 설정함(5자리,최대 6)
+        const int extinguisher[PIPE_CNT] ={22,23,24,25,26,27};
+      ```
   - 아두이노에서 라즈베리로 시리얼 통신 및 서버로 센서값 전달
-
+    - 라즈베리측 아두이노에서 /raspi/serial.c를 실행
   - 서버실행
-
+    ```
+      npm run start
+    ```
   - ngrok
-
+    ```
+      ngrok http http://localhost:[port]
+    ```
 # 팀원
-### 소프트웨어학부 장정환 https://github.com/jjhwan-h  
+### 소프트웨어학부 장정환  
 ### 소프트웨어학부 이진경
 
 ## PPT
